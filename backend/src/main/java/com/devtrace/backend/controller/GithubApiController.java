@@ -64,8 +64,10 @@ public class GithubApiController {
                     String owner = node.get("owner").get("login").asText();
                     boolean isPrivate = node.get("private").asBoolean();
                     String cloneUrl = node.get("clone_url").asText();
+                    String updatedAt = node.has("updated_at") && !node.get("updated_at").isNull() ? node.get("updated_at").asText() : "";
+                    String language = node.has("language") && !node.get("language").isNull() ? node.get("language").asText() : null;
 
-                    repos.add(new GithubRepoDto(name, owner, isPrivate, cloneUrl));
+                    repos.add(new GithubRepoDto(name, owner, isPrivate, cloneUrl, updatedAt, language));
                 }
             }
 

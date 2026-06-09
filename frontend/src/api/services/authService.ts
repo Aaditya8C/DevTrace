@@ -16,6 +16,8 @@ export interface GithubRepo {
   owner: string;
   private: boolean;
   cloneUrl: string;
+  updatedAt?: string;
+  language?: string;
 }
 
 export const authService = {

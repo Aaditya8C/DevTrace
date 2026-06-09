@@ -12,4 +12,6 @@ public class GithubRepoDto {
     private String owner;
     private boolean isPrivate;
     private String cloneUrl;
+    private String updatedAt;
+    private String language;
 }
