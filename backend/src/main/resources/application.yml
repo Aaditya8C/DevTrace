@@ -13,7 +13,7 @@ spring:
               - repo
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 devtrace:
   temp-directory: ${java.io.tmpdir}/devtrace/repos
