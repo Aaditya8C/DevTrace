@@ -33,9 +33,9 @@ export function WorkflowSection() {
             How It Works
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-            From repository to report
+            Repository intelligence,
             <br />
-            in under 10 seconds
+            delivered in seconds
           </h2>
         </SectionReveal>
 
