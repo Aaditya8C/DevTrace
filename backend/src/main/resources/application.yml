@@ -20,7 +20,19 @@ devtrace:
   frontend-url: ${DEVTRACE_FRONTEND_URL}
 
 ai:
-  provider: gemini
+  primary-provider: gemini
+  fallback-order:
+    - openrouter
+    - ollama
   gemini:
     api-key: ${GEMINI_API_KEY}
     model: gemini-2.5-flash
+  openrouter:
+    api-key: ${OPENROUTER_API_KEY}
+    model: ${OPENROUTER_MODEL:deepseek/deepseek-r1}
+    url: ${OPENROUTER_URL:https://openrouter.ai/api/v1/chat/completions}
+  ollama:
+    url: ${OLLAMA_URL:http://localhost:11434/v1/chat/completions}
+    model: ${OLLAMA_MODEL:llama3}
+    enabled: ${OLLAMA_ENABLED:false}
+

@@ -1,46 +1,39 @@
 package com.devtrace.backend.config;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Configuration
 @ConfigurationProperties(prefix = "ai")
 public class AiProperties {
-    private String provider = "gemini";
+    private String primaryProvider = "gemini";
+    private List<String> fallbackOrder = new ArrayList<>(List.of("openrouter", "ollama"));
     private GeminiProperties gemini = new GeminiProperties();
+    private OpenRouterProperties openrouter = new OpenRouterProperties();
+    private OllamaProperties ollama = new OllamaProperties();
 
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
-    }
-
-    public GeminiProperties getGemini() {
-        return gemini;
-    }
-
-    public void setGemini(GeminiProperties gemini) {
-        this.gemini = gemini;
-    }
-
+    @Data
     public static class GeminiProperties {
         private String apiKey;
         private String model = "gemini-2.5-flash";
+    }
 
-        public String getApiKey() {
-            return apiKey;
-        }
+    @Data
+    public static class OpenRouterProperties {
+        private String apiKey;
+        private String model = "deepseek/deepseek-r1";
+        private String url = "https://openrouter.ai/api/v1/chat/completions";
+    }
 
-        public void setApiKey(String apiKey) {
-            this.apiKey = apiKey;
-        }
-
-        public String getModel() {
-            return model;
-        }
-
-        public void setModel(String model) {
-            this.model = model;
-        }
+    @Data
+    public static class OllamaProperties {
+        private String url = "http://localhost:11434/v1/chat/completions";
+        private String model = "llama3";
+        private boolean enabled = false;
     }
 }

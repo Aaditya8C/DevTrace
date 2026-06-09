@@ -1,53 +1,43 @@
-package com.devtrace.backend.ai;
+package com.devtrace.backend.ai.provider;
 
+import com.devtrace.backend.ai.ContributionContext;
+import com.devtrace.backend.ai.PromptBuilder;
+import com.devtrace.backend.ai.AiResponseParser;
 import com.devtrace.backend.config.AiProperties;
 import com.devtrace.backend.model.AiContributionReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-@Component
-public class GeminiAiProvider implements AiProvider {
-    private static final Logger log = LoggerFactory.getLogger(GeminiAiProvider.class);
+@Component("geminiProvider")
+public class GeminiProvider extends AbstractAiProvider {
 
     private final AiProperties aiProperties;
-    private final PromptBuilder promptBuilder;
-    private final AiResponseParser responseParser;
-    private final ObjectMapper objectMapper;
-    private final HttpClient httpClient;
 
-    public GeminiAiProvider(
+    public GeminiProvider(
             AiProperties aiProperties,
             PromptBuilder promptBuilder,
             AiResponseParser responseParser,
             ObjectMapper objectMapper
     ) {
+        super(promptBuilder, responseParser, objectMapper);
         this.aiProperties = aiProperties;
-        this.promptBuilder = promptBuilder;
-        this.responseParser = responseParser;
-        this.objectMapper = objectMapper;
-        this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(10))
-                .build();
     }
 
     @Override
-    public AiContributionReport generateReport(ContributionContext context) {
+    protected AiContributionReport executeReportGeneration(ContributionContext context) {
         String apiKey = aiProperties.getGemini().getApiKey();
         String model = aiProperties.getGemini().getModel();
 
         if (apiKey == null || apiKey.isBlank()) {
-            log.warn("Gemini API key is not configured. Skipping AI report generation.");
-            throw new IllegalStateException("Gemini API key is missing. Please set GEMINI_API_KEY environment variable.");
+            log.warn("Gemini API key is not configured. Skipping Gemini AI report generation.");
+            throw new IllegalStateException("Gemini API key is missing.");
         }
 
         String prompt = promptBuilder.buildReportPrompt(context);
@@ -62,7 +52,6 @@ public class GeminiAiProvider implements AiProvider {
                     )
             );
             String jsonRequest = objectMapper.writeValueAsString(requestBody);
-
             String url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
 
             HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -95,8 +84,7 @@ public class GeminiAiProvider implements AiProvider {
 
         } catch (Exception e) {
             log.error("Error generating report from Gemini AI Provider", e);
-            throw new RuntimeException("Failed to generate AI report: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to generate AI report from Gemini: " + e.getMessage(), e);
         }
     }
 }
-

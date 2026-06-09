@@ -1,6 +1,6 @@
 package com.devtrace.backend.service;
 
-import com.devtrace.backend.ai.AiProvider;
+import com.devtrace.backend.ai.orchestrator.AiOrchestrator;
 import com.devtrace.backend.ai.ContributionContext;
 import com.devtrace.backend.config.DevTraceProperties;
 import com.devtrace.backend.dto.AnalysisRequestDto;
@@ -35,7 +35,7 @@ public class AnalysisService {
     private final RepositoryCloner repositoryCloner;
     private final ContributionAggregator contributionAggregator;
     private final ContributionContextBuilder contributionContextBuilder;
-    private final AiProvider aiProvider;
+    private final AiOrchestrator aiOrchestrator;
     private final DevTraceProperties devTraceProperties;
     private final com.devtrace.backend.security.SessionService sessionService;
     private final java.util.concurrent.Executor taskExecutor;
@@ -45,7 +45,7 @@ public class AnalysisService {
             RepositoryCloner repositoryCloner,
             ContributionAggregator contributionAggregator,
             ContributionContextBuilder contributionContextBuilder,
-            AiProvider aiProvider,
+            AiOrchestrator aiOrchestrator,
             DevTraceProperties devTraceProperties,
             com.devtrace.backend.security.SessionService sessionService,
             @org.springframework.beans.factory.annotation.Qualifier("taskExecutor") java.util.concurrent.Executor taskExecutor
@@ -53,7 +53,7 @@ public class AnalysisService {
         this.repositoryCloner = repositoryCloner;
         this.contributionAggregator = contributionAggregator;
         this.contributionContextBuilder = contributionContextBuilder;
-        this.aiProvider = aiProvider;
+        this.aiOrchestrator = aiOrchestrator;
         this.devTraceProperties = devTraceProperties;
         this.sessionService = sessionService;
         this.taskExecutor = taskExecutor;
@@ -137,7 +137,7 @@ public class AnalysisService {
             AiContributionReport aiReport = null;
             try {
                 log.info("Requesting AI report generation for job {}", jobId);
-                aiReport = aiProvider.generateReport(context);
+                aiReport = aiOrchestrator.generateReport(context);
                 log.info("AI report generation completed for job {}", jobId);
             } catch (Exception aiException) {
                 log.error("AI report generation failed for job {}, returning statistics only", jobId, aiException);
