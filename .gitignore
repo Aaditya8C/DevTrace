@@ -1,0 +1,91 @@
+# DevTrace Root .gitignore
+# Cohesive gitignore for both Backend (Spring Boot) and Frontend (Next.js/React)
+
+# ==========================================
+# Operating System & IDEs
+# ==========================================
+.DS_Store
+Thumbs.db
+db.db
+*.lnk
+*.ini
+
+# JetBrains / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+.history/
+*.code-workspace
+
+# Eclipse / STS
+.metadata/
+.classpath
+.project
+.settings/
+.factorypath
+.springBeans
+.sts4-cache
+
+# ==========================================
+# Environment Variables & Secrets (CRITICAL)
+# ==========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+*.p12
+
+# ==========================================
+# Backend (Spring Boot / Java)
+# ==========================================
+backend/target/
+backend/out/
+backend/temp/
+backend/bin/
+backend/.mvn/repo/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/logs/
+*.class
+*.jar
+*.war
+*.ear
+
+# ==========================================
+# Frontend (Next.js / Node.js)
+# ==========================================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/coverage/
+frontend/.vercel/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# Package manager files / directories
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+!frontend/.yarn/patches
+!frontend/.yarn/plugins
+!frontend/.yarn/releases
+!frontend/.yarn/versions
+
+# ==========================================
+# Logs & Temporary Files
+# ==========================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+tmp/
+temp/

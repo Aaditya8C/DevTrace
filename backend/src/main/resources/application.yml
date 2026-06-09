@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: devtrace-backend
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}
+            scope:
+              - read:user
+              - repo
+
+server:
+  port: 8080
+
+devtrace:
+  temp-directory: ${java.io.tmpdir}/devtrace/repos
+  frontend-url: ${DEVTRACE_FRONTEND_URL}
+
+ai:
+  provider: gemini
+  gemini:
+    api-key: ${GEMINI_API_KEY}
+    model: gemini-2.5-flash
