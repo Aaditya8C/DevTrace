@@ -69,13 +69,26 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.08 }}
-          className="text-4xl sm:text-5xl lg:text-[3.75rem] font-bold tracking-tight text-[var(--text-primary)] leading-tight"
+          className="text-4xl sm:text-5xl lg:text-[4.5rem] font-bold tracking-tight text-[var(--text-primary)] leading-[1.02]"
         >
-          Transform GitHub Contributions
+          Let your
           <br />
-          into{" "}
-          <span className="gradient-text">Career-Ready</span>
-          {" "}Achievements
+
+          <span className="font-extrabold">
+            Commit History
+          </span>
+          <br />
+
+          Speak{" "}
+          <span className="gradient-text">
+            Louder
+          </span>
+          <br />
+
+          than{" "}
+          <span className="text-red-500 line-through decoration-2">
+            Claims
+          </span>
         </motion.h1>
 
         {/* Subtitle */}
