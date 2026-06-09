@@ -52,4 +52,8 @@ public class ContributionContext {
 
     /** Keyword frequency map (e.g., {"refactor": 18, "validation": 7}). */
     private Map<String, Integer> keywordFrequency;
+
+    /** Digest of descriptive commit messages. */
+    private List<String> commitMessages;
 }
+

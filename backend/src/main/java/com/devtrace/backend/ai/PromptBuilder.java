@@ -64,10 +64,17 @@ public class PromptBuilder {
                     .collect(Collectors.joining("\n"))
                 : "- General: 100%";
 
+        // ── Descriptive commits logs ─────────────────────────
+        String commitsText = context.getCommitMessages() != null && !context.getCommitMessages().isEmpty()
+                ? context.getCommitMessages().stream()
+                    .map(c -> "- " + c)
+                    .collect(Collectors.joining("\n"))
+                : "- No descriptive commits found";
+
         return """
-            You are an expert technical career coach and resume writer. Your task is to use the pre-analyzed contribution profile below and generate a professional, recruiter-ready career report.
+            You are an expert technical career coach and resume writer. Your task is to use the pre-analyzed contribution profile and the user's actual commit logs below to generate a professional, recruiter-ready career report.
             
-            IMPORTANT: The analysis has already been performed. You are enhancing and polishing structured findings, not analyzing raw data.
+            IMPORTANT: Use the provided commit messages to extract the actual context of what the user built, solved, and designed. Do NOT just repeat statistics, numbers, or file counts. Translate the files modified and technologies into concrete engineering contributions.
             
             Contributor Profile:
             - Repository: %s
@@ -95,12 +102,15 @@ public class PromptBuilder {
             
             File Types Modified: %s
             
+            User's Actual Commit Logs (Use these to understand the features built and tasks completed):
+            %s
+            
             You must return a valid JSON object matching the following structure. Do NOT wrap the JSON in markdown code blocks (e.g. do NOT include ```json or ```). Return ONLY the raw JSON string.
             
             JSON Structure:
             {
               "contributionSummary": [
-                "Detailed summary bullet 1 (explain what was built, problems solved, and business value).",
+                "Detailed summary bullet 1 (explain what was built, problems solved, and business/technical value).",
                 "Detailed summary bullet 2..."
               ],
               "resumeBullets": [
@@ -115,10 +125,10 @@ public class PromptBuilder {
             }
             
             Strict Guidelines:
-            1. contributionSummary: Generate 4 to 8 detailed bullets. Reference specific engineering areas, technologies, and quantified metrics from the profile above.
-            2. resumeBullets: Generate 5 to 10 highly-polished bullets starting with strong action verbs. Use the actual commit count, line counts, file counts, and technology stack provided.
-            3. linkedInSummary: Must be 100 to 200 words, sound natural and written in first-person ("I") or professional third-person, focusing on engineering impact. Mention specific technologies used.
-            4. interviewTopics: Generate 4 to 6 relevant concepts to study for interviews, directly tied to the engineering areas and technologies listed above.
+            1. contributionSummary: Generate 4 to 8 detailed bullets. Use the user's commit messages to explain exactly what features they built or what issues they solved. Avoid generic sentences; be highly specific.
+            2. resumeBullets: Generate 5 to 10 highly-polished bullets starting with strong action verbs. Highlight technical complexity, architectural design, and impact described in the commit messages rather than just re-stating file change statistics.
+            3. linkedInSummary: Must be 100 to 200 words, sound natural and written in first-person ("I") or professional third-person, focusing on engineering impact. Mention specific technologies and features built.
+            4. interviewTopics: Generate 4 to 6 relevant concepts to study for interviews, directly tied to the engineering tasks and technologies described in the commit messages.
             5. Do NOT invent technologies or frameworks not listed in the profile.
             6. Return ONLY the JSON. Verify JSON validity before outputting.
             """.formatted(
@@ -134,7 +144,8 @@ public class PromptBuilder {
                 breakdownText,
                 foldersText,
                 keywordsText,
-                extensionsText
+                extensionsText,
+                commitsText
         );
     }
 }

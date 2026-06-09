@@ -80,6 +80,7 @@ public class ContributionContextBuilder {
         context.setContributionBreakdown(breakdown);
         context.setExtensionFrequency(new HashMap<>(raw.extensionFrequency()));
         context.setKeywordFrequency(new HashMap<>(raw.keywordFrequency()));
+        context.setCommitMessages(extractDescriptiveCommits(raw.commitMessages(), 30));
 
         log.info("ContributionContext built: {} commits, {} areas, {} technologies, {} keywords",
                 context.getTotalCommits(), primaryAreas.size(),
@@ -137,5 +138,36 @@ public class ContributionContextBuilder {
             return days + " days";
         }
         return months + " months";
+    }
+
+    private List<String> extractDescriptiveCommits(List<String> rawMessages, int limit) {
+        if (rawMessages == null) return Collections.emptyList();
+        
+        Set<String> uniqueMessages = new LinkedHashSet<>();
+        for (String msg : rawMessages) {
+            if (msg == null) continue;
+            String trimmed = msg.trim();
+            String lower = trimmed.toLowerCase();
+            
+            // Filter out merge commits
+            if (lower.startsWith("merge ") || lower.contains("merging") || lower.startsWith("merge branch") || lower.startsWith("merge pull request")) {
+                continue;
+            }
+            
+            // Filter out trivial boilerplate or extremely short logs
+            if (trimmed.length() < 12) {
+                continue;
+            }
+            
+            if (lower.startsWith("wip") || lower.startsWith("temp") || lower.startsWith("fix typo") || lower.startsWith("cleanup") || lower.startsWith("test ") || lower.startsWith("update readme") || lower.equals("initial commit")) {
+                continue;
+            }
+            
+            uniqueMessages.add(trimmed);
+            if (uniqueMessages.size() >= limit) {
+                break;
+            }
+        }
+        return new ArrayList<>(uniqueMessages);
     }
 }
