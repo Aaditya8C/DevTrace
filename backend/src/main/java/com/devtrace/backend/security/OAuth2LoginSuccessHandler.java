@@ -21,8 +21,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        // Redirect user back to the frontend dashboard
-        String targetUrl = frontendUrl + "/dashboard";
+        // Redirect user back to the frontend analyze page
+        String targetUrl = frontendUrl + "/analyze";
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 }
