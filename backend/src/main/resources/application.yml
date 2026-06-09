@@ -8,6 +8,7 @@ spring:
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
+            redirect-uri: ${devtrace.frontend-url}/login/oauth2/code/github
             scope:
               - read:user
               - repo
