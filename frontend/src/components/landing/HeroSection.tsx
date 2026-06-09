@@ -124,7 +124,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.45 }}
-          className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2"
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-5"
         >
           {socialProof.map(({ icon: Icon, text }) => (
             <div key={text} className="flex items-center gap-1.5 text-sm text-[var(--text-muted)]">
@@ -134,39 +134,6 @@ export function HeroSection() {
           ))}
         </motion.div>
 
-        {/* Secondary CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.55 }}
-          className="mt-5"
-        >
-          <Button variant="ghost" size="sm" asChild className="text-[var(--text-muted)]">
-            <Link href={ROUTES.DASHBOARD}>
-              View example dashboard
-              <ArrowRight size={13} />
-            </Link>
-          </Button>
-        </motion.div>
-
-        {/* Stats strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.65 }}
-          className="mt-12 grid grid-cols-3 gap-4 max-w-md mx-auto"
-        >
-          {[
-            { label: "Commits Analyzed", value: "50K+" },
-            { label: "Resume Bullets", value: "12K+" },
-            { label: "Developers", value: "2.4K+" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl font-bold text-[var(--accent-from)]">{stat.value}</div>
-              <div className="text-xs text-[var(--text-muted)] mt-0.5">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
