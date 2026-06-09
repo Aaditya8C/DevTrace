@@ -58,6 +58,13 @@ backend/logs/
 *.war
 *.ear
 
+# Local developer profile configuration files (ignored)
+**/application-local.yml
+**/application-dev.yml
+**/application-local.properties
+**/application-dev.properties
+
+
 # ==========================================
 # Frontend (Next.js / Node.js)
 # ==========================================
