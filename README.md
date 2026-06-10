@@ -11,8 +11,8 @@ DevTrace is a high-performance developer contribution analyzer and AI-powered re
 Experience DevTrace in action! Below is a demo of the workflow, from repository submission through processing to the final contributor dashboard.
 
 <div align="center">
-  <video src="Vid2.mp4" controls width="100%" style="max-width: 800px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.1);"></video>
-  <p><em>If the video player does not render, you can <a href="Vid2.mp4">download and watch Vid2.mp4 directly</a>.</em></p>
+  <video src="Vid2.mp4" width="800" controls></video>
+  <p><em>If the video player does not render, you can <a href="Vid2.mp4">download or watch Vid2.mp4 directly</a>.</em></p>
 </div>
 
 ---
@@ -166,5 +166,3 @@ graph TD
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License.
