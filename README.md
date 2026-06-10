@@ -8,11 +8,13 @@ DevTrace is a high-performance developer contribution analyzer and AI-powered re
 
 ## 📺 Video Demonstration
 
-Experience DevTrace in action! Below is a demo of the workflow, from repository submission through processing to the final contributor dashboard.
+Experience DevTrace in action! Click the preview thumbnail below to watch the video demonstration on Google Drive:
 
 <div align="center">
-  <video src="Vid2.mp4" width="800" controls></video>
-  <p><em>If the video player does not render, you can <a href="Vid2.mp4">download or watch Vid2.mp4 directly</a>.</em></p>
+  <a href="https://drive.google.com/file/d/1PnN8BhPLxZuhIrdEmKomr1J2SXVxtbZc/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+    <img src="video_thumbnail.png" alt="DevTrace Video Demo" width="800" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);" />
+  </a>
+  <p><em>Click the image above to open the video walkthrough on Google Drive.</em></p>
 </div>
 
 ---
